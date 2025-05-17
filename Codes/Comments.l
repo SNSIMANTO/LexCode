@@ -2,11 +2,14 @@
 #include <stdio.h>
 %}
 
-COMMENT     (\/\/[^\n]|\/\([^]|\+[^/])\*+\/)
+COMMENT     (\/\/[^\n]*|\/\*([^*]|\*+[^*/])*\*+\/)
 
 %%
+
 {COMMENT}   { printf("Comment\t: %s\n", yytext); }
-.|\n        { /* Ignore other characters */ }
+[ \t\n]+    { /* Ignore whitespaces */ }
+.           { /* Ignore other characters */ }
+
 %%
 
 int main() {
